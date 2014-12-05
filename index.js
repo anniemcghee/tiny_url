@@ -17,7 +17,12 @@ app.get('/', function( req, res ){
 
 app.post('/create', function( req, res ){
 
-	db.Address.create(req.body).done(function (err, data){
+	db.Address.create({ url: req.body.url }).done(function (err, data){
+		if (err) {
+			var errorMsg = { msg: err.errors[0].message }
+			res.render('index', {errorMsg: errorMsg});
+			return;
+		}
   		// res.send(data);
   		var id = data.id;
   		var hash = hashids.encode(id);

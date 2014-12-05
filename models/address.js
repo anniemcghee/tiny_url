@@ -2,7 +2,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Address = sequelize.define("Address", {
-    url: DataTypes.STRING,
+
+    url: {
+          type: DataTypes.STRING,
+          validate: {
+            notEmpty: { msg: "Cannot shorten an empty URL!"},
+            isUrl: { msg: "Not a valid URL. Try again!"}
+        }
+    },
     random: DataTypes.STRING
   }, {
     classMethods: {
