@@ -40,6 +40,4 @@ app.get('/:tinyurl', function(req,res) {
 })
 
 
-app.listen(3000, function(){
-	console.log('Ready to rock on 3000!');
-});
+app.listen(process.env.PORT || 3000);
