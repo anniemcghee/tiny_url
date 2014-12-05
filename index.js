@@ -18,6 +18,7 @@ app.get('/', function( req, res ){
 app.post('/create', function( req, res ){
 
 	db.Address.create({ url: req.body.url }).done(function (err, data){
+		var host = req.headers.host;
 		if (err) {
 			var errorMsg = { msg: err.errors[0].message }
 			res.render('index', {errorMsg: errorMsg});
@@ -28,7 +29,7 @@ app.post('/create', function( req, res ){
   		var hash = hashids.encode(id);
   		data.random = hash;
   		data.save().done(function (err, data2){
-  			res.render('create', {data2: data2});
+  			res.render('create', {data2: data2, 'host': host});
   		})
 	})
 });
